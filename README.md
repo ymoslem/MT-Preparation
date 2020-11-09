@@ -1,9 +1,9 @@
 # MT-Preperation
 Machine Translation (MT) Preparation Scripts
 
-## Install Requirements
+## Installing Requirements
 
-The filtering and subwording scripts use a number of Python packages. To install these dependencies using `pip` run the following command:
+The filtering and subwording scripts use a number of Python packages. To install these dependencies using `pip` run the following command in Terminal/CMD:
 
 ```
 pip3 install --user -r requirements.txt
