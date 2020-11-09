@@ -1,11 +1,20 @@
 # MT-Preperation
 Machine Translation (MT) Preparation Scripts
 
+## Install Requirements
+
+The filtering and subwording scripts use a number of Python packages. To install these dependencies using `pip` run the following command:
+
+```
+pip3 install --user -r requirements.txt
+```
+
 ## Filtering
 There is one script to use for clearning your Machine Translation dataset. You must have two files, one for the source and one for the target. If you rather have one TMX file, you can first use the [TXM2MT](https://github.com/ymoslem/file-converters) converter.
 
 The filter script achieve the following steps:
 * deleting empty cells;
+* removing HTML tags;
 * tokenizing the Source segments;
 * tokenizing the Target segments
 * deleting duplicates;
