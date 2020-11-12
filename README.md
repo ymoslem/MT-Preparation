@@ -1,4 +1,4 @@
-# MT-Preperation
+# MT-Preparation
 Machine Translation (MT) Preparation Scripts
 
 ## Installing Requirements
@@ -33,10 +33,16 @@ It is recommended to run the subwording process as it helps your Machine Transla
 
 **1. Train a subwording model**
 
-You need to create two subwording models to learn the volcabulary of your source and target.
+You need to create two subwording models to learn the vocabulary of your source and target.
 
 ```
 python3 train.py <train_source_file_tok> <train_target_file_tok>
+```
+
+By default, the subwording model type is `unigram`. You can change it BPE by adding `--model_type=bpe` to this line in the script as follows:
+
+```
+source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --vocab_size='+str(source_vocab_size)+' --hard_vocab_limit=false --model_type=bpe'
 ```
 
 **2. Subword**
@@ -55,6 +61,13 @@ This step is useful after training your Machine Translation model and translatin
 python3 desubword.py <target_model_file> <target_pred_file>
 ```
 
+## Extract Training and Development Datasets
+
+In this step, you split the parallel dataset into training and development datasets. The first argument is the number of segments you want in the development dataset; the script rondomly selects this number of segments for the dev set and keeps the rest for the train set.
+
+```
+python3 train_dev_split.py <dev_segment_number> <source_file_path> <target_file_path>
+```
 
 ## Questions
 If you have questions or suggestions, please feel free to [contact](https://blog.machinetranslation.io/contact/) me.
