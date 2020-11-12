@@ -61,7 +61,7 @@ This step is useful after training your Machine Translation model and translatin
 python3 desubword.py <target_model_file> <target_pred_file>
 ```
 
-## Extract Training and Development Datasets
+## Extracting Training and Development Datasets
 
 In this step, you split the parallel dataset into training and development datasets. The first argument is the number of segments you want in the development dataset; the script rondomly selects this number of segments for the dev set and keeps the rest for the train set.
 
