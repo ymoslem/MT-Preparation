@@ -41,8 +41,8 @@ def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
     df_train = df.drop(df_dev.index)
 
     # Extract Test set from the main dataset
-    df_test = df.sample(n = int(segment_no_test))
-    df_train = df.drop(df_test.index)
+    df_test = df_train.sample(n = int(segment_no_test))
+    df_train = df_train.drop(df_test.index)
 
     # Write the dataframe to two Source and Target files
     source_file_train = source_file+'.train'
