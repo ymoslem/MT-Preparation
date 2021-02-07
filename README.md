@@ -49,6 +49,8 @@ source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --
 target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size='+str(target_vocab_size)+' --hard_vocab_limit=false --model_type=bpe'
 ```
 
+Optionally, you can add more options like `--split_digits=true` to split all digits (0-9) into separate pieces, or `--byte_fallback=true` to decompose unknown pieces into UTF-8 byte pieces, which might help avoid out of vocaublary tokens.
+
 **2. Subword**
 
 In this step, you use the models you created in the previous step to subword your source and target Machine Translation files. You have to apply the same step on the source files to be translated later with the Machine Translation model.
