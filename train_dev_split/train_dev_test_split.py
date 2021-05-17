@@ -7,7 +7,6 @@
 
 import pandas as pd
 import numpy as np
-from sacremoses import MosesTokenizer
 import re
 import csv
 import sys
