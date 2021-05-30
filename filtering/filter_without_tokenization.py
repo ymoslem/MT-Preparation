@@ -72,7 +72,7 @@ def prepare(source_file, target_file):
 
     # Drop too-long rows (source or target)
     df["Too-Long"] = (df['Source'].str.len() > df['Target'].str.len() * 2) | (df['Target'].str.len() > df['Source'].str.len() * 2)
-    #display(df.loc[df['Too long'] == True]) # display only too long rows
+    #display(df.loc[df['Too-Long'] == True]) # display only too long rows
     df = df.set_index(['Too-Long'])
 
     try: # To avoid (KeyError: '[True] not found in axis') if there are no too-long cells
