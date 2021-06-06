@@ -69,19 +69,23 @@ def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
 
     with open(source_file_dev, "w") as sf:
         sf.write("\n".join(line for line in df_dic_dev['Source']))
-
+        sf.write("\n") # end of file newline
+        
     with open(target_file_dev, "w") as tf:
         tf.write("\n".join(line for line in df_dic_dev['Target']))
-
+        tf.write("\n") # end of file newline
+        
 
     df_dic_test = df_test.to_dict(orient='list')
 
     with open(source_file_test, "w") as sf:
         sf.write("\n".join(line for line in df_dic_test['Source']))
-
+        sf.write("\n") # end of file newline
+        
     with open(target_file_test, "w") as tf:
         tf.write("\n".join(line for line in df_dic_test['Target']))
-
+        tf.write("\n") # end of file newline
+        
 
     print("--- Wrote Files")
     print("Done!")
