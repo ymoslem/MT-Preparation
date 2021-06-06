@@ -31,7 +31,7 @@ def prepare(source_file, target_file):
 
 
 
-    # Tokenize and lower-case text, and remove HTML.
+    # Lower-case text, and remove HTML.
     # Use str() to avoid (TypeError: expected string or bytes-like object)
     # Note: removing tags should be before removing empty cells because some cells might have only tags and become empty.
 
