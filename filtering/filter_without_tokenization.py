@@ -108,9 +108,11 @@ def prepare(source_file, target_file):
 
     with open(source_file, "w") as sf:
         sf.write("\n".join(line for line in df_dic['Source']))
+        sf.write("\n") # end of file newline
 
     with open(target_file, "w") as tf:
         tf.write("\n".join(line for line in df_dic['Target']))
+        tf.write("\n") # end of file newline
 
     print("--- Wrote Files")
     print("Done!")
