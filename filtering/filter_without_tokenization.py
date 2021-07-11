@@ -15,14 +15,18 @@ import sys
 # from IPython.display import display
 
 
+def prepare(source_file, target_file, lower=False):
 
-def prepare(source_file, target_file):
-
-    df_source = pd.read_csv(source_file, names=['Source'], sep="\n", quoting=csv.QUOTE_NONE, error_bad_lines=False)
-    df_target = pd.read_csv(target_file, names=['Target'], sep="\n", quoting=csv.QUOTE_NONE, error_bad_lines=False)
+    df_source = pd.read_csv(source_file, names=['Source'], sep="\n", quoting=csv.QUOTE_NONE)
+    df_target = pd.read_csv(target_file, names=['Target'], sep="\n", quoting=csv.QUOTE_NONE)
     df = pd.concat([df_source, df_target], axis=1)  # Join the two dataframes along columns
     print("Dataframe shape (rows, columns):", df.shape)
-
+    
+    
+    # Lower-case the data
+    if lower == True:
+        df['Source'] = df['Source'].str.lower()
+        df['Target'] = df['Target'].str.lower()
 
     # Delete nan
     df = df.dropna()
@@ -31,28 +35,29 @@ def prepare(source_file, target_file):
 
 
 
-    # Lower-case text, and remove HTML.
+    # Tokenize and lower-case text, and remove HTML.
     # Use str() to avoid (TypeError: expected string or bytes-like object)
     # Note: removing tags should be before removing empty cells because some cells might have only tags and become empty.
 
     html = re.compile('<.*?>|&lt;.*?&gt;') # Maybe also &quot;
 
-    clean_source = lambda row: re.sub(html, '', str(row)).strip().lower()
+    clean_source = lambda row: re.sub(html, '', str(row)).strip()
 
     df["Source"] = df["Source"].apply(clean_source)
 
     print("--- Cleaning the Source Complete\t--> Rows:", df.shape[0])
 
 
-    clean_target = lambda row: re.sub(html, '', str(row)).strip().lower()
+    clean_target = lambda row: re.sub(html, '', str(row)).strip()
 
     df["Target"] = df["Target"].apply(clean_target)
 
     print("--- Cleaning the Target Complete\t--> Rows:", df.shape[0])
-
+    
 
     # Drop duplicates
     df = df.drop_duplicates()
+    #df = df.drop_duplicates(subset=['Target'])
 
     print("--- Duplicates Deleted\t\t\t--> Rows:", df.shape[0])
 
@@ -66,19 +71,25 @@ def prepare(source_file, target_file):
         df = df.drop([True]) # Boolean, not string, do not add quotes
     except:
         pass
-
+    
+    df = df.reset_index()
+    df = df.drop(['Source-Copied'], axis = 1)
+    
     print("--- Source-Copied Rows Deleted\t\t--> Rows:", df.shape[0])
 
 
     # Drop too-long rows (source or target)
-    df["Too-Long"] = (df['Source'].str.len() > df['Target'].str.len() * 2) | (df['Target'].str.len() > df['Source'].str.len() * 2)
-    #display(df.loc[df['Too-Long'] == True]) # display only too long rows
+    df["Too-Long"] = (df['Source'].str.len() > df['Target'].str.len() * 1.1) | (df['Target'].str.len() > df['Source'].str.len() * 1.1)
+    #display(df.loc[df['Too long'] == True]) # display only too long rows
     df = df.set_index(['Too-Long'])
 
     try: # To avoid (KeyError: '[True] not found in axis') if there are no too-long cells
         df = df.drop([True]) # Boolean, not string, do not add quotes
     except:
         pass
+    
+    df = df.reset_index()
+    df = df.drop(['Too-Long'], axis = 1)
 
     print("--- Too-Long Source/Target Deleted\t--> Rows:", df.shape[0])
 
@@ -90,15 +101,13 @@ def prepare(source_file, target_file):
     df = df.dropna()
 
     print("--- Rows with Empty Cells Deleted\t--> Rows:", df.shape[0])
-
-
-    # Optional: Reset the indext and drop the boolean columns
-    # df = df.reset_index()
-    # df = df.set_index(['index'])
-    # df = df.drop(['Source-Copied', 'Too-Long'], axis = 1)
-    # display(df)
-
-
+    
+    
+    # Shuffle the data
+    df = df.sample(frac=1).reset_index(drop=True)
+    print("--- Rows Shuffled\t\t\t--> Rows:", df.shape[0])
+    
+    
     # Write the dataframe to two Source and Target files
     source_file = source_file+'-filtered'
     target_file = target_file+'-filtered'
@@ -108,11 +117,11 @@ def prepare(source_file, target_file):
 
     with open(source_file, "w") as sf:
         sf.write("\n".join(line for line in df_dic['Source']))
-        sf.write("\n") # end of file newline
+        sf.write("\n")
 
     with open(target_file, "w") as tf:
         tf.write("\n".join(line for line in df_dic['Target']))
-        tf.write("\n") # end of file newline
+        tf.write("\n")
 
     print("--- Wrote Files")
     print("Done!")
@@ -122,4 +131,4 @@ def prepare(source_file, target_file):
 # Corpora details
 source_file = sys.argv[1]    # path to the source file
 target_file = sys.argv[2]    # path to the target file
-prepare(source_file, target_file)
+prepare(source_file, target_file, lower=False)
