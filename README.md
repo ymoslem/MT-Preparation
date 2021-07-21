@@ -39,7 +39,7 @@ You need to create two subwording models to learn the vocabulary of your source 
 python3 train.py <train_source_file_tok> <train_target_file_tok>
 ```
 
-By default, the subwording model type is `unigram`. You can change it BPE by adding `--model_type=bpe` to this line in the script as follows:
+By default, the subwording model type is `unigram`. You can change it BPE by adding `--model_type=bpe` to these lines in the script as follows:
 
 ```
 source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --vocab_size='+str(source_vocab_size)+' --hard_vocab_limit=false --model_type=bpe'
@@ -49,7 +49,7 @@ source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --
 target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size='+str(target_vocab_size)+' --hard_vocab_limit=false --model_type=bpe'
 ```
 
-Optionally, you can add more options like `--split_digits=true` to split all digits (0-9) into separate pieces, or `--byte_fallback=true` to decompose unknown pieces into UTF-8 byte pieces, which might help avoid out of vocaublary tokens.
+Optionally, you can add [more options](https://github.com/google/sentencepiece/blob/master/doc/options.md) like `--split_digits=true` to split all digits (0-9) into separate pieces, or `--byte_fallback=true` to decompose unknown pieces into UTF-8 byte pieces, which might help avoid out of vocaublary tokens. You can also use `train_extremely_large_corpus` for a big corpus to avoid memory issues.
 
 **2. Subword**
 
