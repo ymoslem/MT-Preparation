@@ -51,6 +51,7 @@ target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --
 
 Optionally, you can add [more options](https://github.com/google/sentencepiece/blob/master/doc/options.md) like `--split_digits=true` to split all digits (0-9) into separate pieces, or `--byte_fallback=true` to decompose unknown pieces into UTF-8 byte pieces, which might help avoid out of vocaublary tokens. You can also use `train_extremely_large_corpus` for a big corpus to avoid memory issues.
 
+
 **2. Subword**
 
 In this step, you use the models you created in the previous step to subword your source and target Machine Translation files. You have to apply the same step on the source files to be translated later with the Machine Translation model.
@@ -58,6 +59,9 @@ In this step, you use the models you created in the previous step to subword you
 ```
 python3 subword.py <source_model_file> <target_model_file> <source_pred_file> <target_pred_file>
 ```
+
+Note: If you are using OpenNMT, remove `<s>` and `</s>` in the target as they are alraedy added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)).
+
 
 **3. Desubword**
 
