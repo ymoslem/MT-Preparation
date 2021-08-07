@@ -57,7 +57,7 @@ Optionally, you can add [more options](https://github.com/google/sentencepiece/b
 In this step, you use the models you created in the previous step to subword your source and target Machine Translation files. You have to apply the same step on the source files to be translated later with the Machine Translation model.
 
 ```
-python3 subword.py <source_model_file> <target_model_file> <source_pred_file> <target_pred_file>
+python3 subword.py <sp_source_model_path> <sp_target_model_path> <source_file_path> <target_file_path>
 ```
 
 Note: If you are using OpenNMT, remove `<s>` and `</s>` in the target as they are alraedy added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)).
