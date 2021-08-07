@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Subwording the source and target files
-# Command: python3 subword.py <source_model_file> <target_model_file> <source_pred_file> <target_pred_file>
+# Command: python3 subword.py <sp_source_model> <sp_target_model> <source_file> <target_file>
 
 
 import sys
