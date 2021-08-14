@@ -31,7 +31,7 @@ python3 filter.py <source_lang> <target_lang> <source_file_path> <target_file_pa
 
 It is recommended to run the subwording process as it helps your Machine Translation engine avoid out-of-vocabulary tokens. The subwording scripts apply [SentencePiece](https://github.com/google/sentencepiece) on your source and target Machine Translation files. There are three scripts provided:
 
-**1. Train a subwording model**
+### 1. Train a subwording model
 
 You need to create two subwording models to learn the vocabulary of your source and target.
 
@@ -49,10 +49,16 @@ source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --
 target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size='+str(target_vocab_size)+' --hard_vocab_limit=false --model_type=bpe'
 ```
 
-Optionally, you can add [more options](https://github.com/google/sentencepiece/blob/master/doc/options.md) like `--split_digits=true` to split all digits (0-9) into separate pieces, or `--byte_fallback=true` to decompose unknown pieces into UTF-8 byte pieces, which might help avoid out of vocaublary tokens. You can also use `--train_extremely_large_corpus=true` for a big corpus to avoid memory issues.
+Optionally, you can add [more options](https://github.com/google/sentencepiece/blob/master/doc/options.md) like `--split_digits=true` to split all digits (0-9) into separate pieces, or `--byte_fallback=true` to decompose unknown pieces into UTF-8 byte pieces, which might help avoid out of vocaublary tokens. 
 
+**Notes for big corpora:**
 
-**2. Subword**
+* You can use `--train_extremely_large_corpus=true` for a big corpus to avoid memory issues.
+* The default SentencePiece value for `--input_sentence_size` is 0, i.e. the whole corpus. You can change it to a value between 1 and 10 million sentences, which will be enough for creating a good SentencePiece model.
+* When the value of `--input_sentence_size` is less than the size of the corpus, it is recommended to set `--shuffle_input_sentence=true` to make your sample representive to the distribution of your data.
+* The default SentencePiece value for `--vocab_size` is 8,000. You can go for a higher value between 30,000 and 50,000, and up to 100,000 for a big corpus. Still, note that smaller values will encourage the model to make more splits on words, which might be better in the case of a multilingual model if the languages share the alphabet.
+
+### 2. Subword
 
 In this step, you use the models you created in the previous step to subword your source and target Machine Translation files. You have to apply the same step on the source files to be translated later with the Machine Translation model.
 
@@ -60,10 +66,14 @@ In this step, you use the models you created in the previous step to subword you
 python3 subword.py <sp_source_model_path> <sp_target_model_path> <source_file_path> <target_file_path>
 ```
 
-Note: If you are using OpenNMT, remove `<s>` and `</s>` in the target as they are alraedy added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)).
+**Notes for OpenNMT users:**
+
+* If you are using OpenNMT, remove `<s>` and `</s>` in the target as they are alraedy added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)).
+* After you segment your source and target files with the generated SentencePiece models, you must [build vocab](https://opennmt.net/OpenNMT-py/options/build_vocab.html) using OpenNMT-py to generate vocab files compatible with it. OpenNMT-tf has an option that allows [converting SentencePiece vocab](https://opennmt.net/OpenNMT-tf/vocabulary.html#convert-a-sentencepiece-vocabulary-to-opennmt-tf) to a compatible format.
+* Before you start training with OpenNMT-py, you must confgure `src_vocab_size` and `tgt_vocab_size` to exactly match the value you used for `--vocab_size` in SentencePiece. The default is 50000, which is usually good.
 
 
-**3. Desubword**
+### 3. Desubword
 
 This step is useful after training your Machine Translation model and translating files with it as you need to decode/desubword the generated target (i.e. translated) files.
 
