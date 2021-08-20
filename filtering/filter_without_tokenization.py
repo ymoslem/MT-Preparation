@@ -79,7 +79,7 @@ def prepare(source_file, target_file, lower=False):
 
 
     # Drop too-long rows (source or target)
-    df["Too-Long"] = (df['Source'].str.len() > df['Target'].str.len() * 1.1) | (df['Target'].str.len() > df['Source'].str.len() * 1.1)
+    df["Too-Long"] = (df['Source'].str.len() > df['Target'].str.len() * 1.5) | (df['Target'].str.len() > df['Source'].str.len() * 1.5)
     #display(df.loc[df['Too long'] == True]) # display only too long rows
     df = df.set_index(['Too-Long'])
 
