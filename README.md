@@ -13,18 +13,18 @@ pip3 install --user -r requirements.txt
 There is one script to use for clearning your Machine Translation dataset. You must have two files, one for the source and one for the target. If you rather have one TMX file, you can first use the [TXM2MT](https://github.com/ymoslem/file-converters) converter.
 
 The filter script achieve the following steps:
-* deleting empty cells;
-* removing HTML tags;
-* tokenizing the Source segments;
-* tokenizing the Target segments
-* deleting duplicates;
-* deleting source-copied rows;
-* deleting too-long Source/Target (ratio 200%); and
+* Deleting empty rows;
+* Deleting duplicates;
+* Deleting source-copied rows;
+* Deleting too long Source/Target (ratio 200% and > 200 words);
+* Removing HTML;
+* Segments will remain in the true-case unless lower is True;
+* Shuffling rows; and
 * writing the output files.
 
 Run the filtering script in the Terminal/CMD as follows:
 ```
-python3 filter.py <source_lang> <target_lang> <source_file_path> <target_file_path>
+python3 filter.py <source_file_path> <target_file_path> <source_lang> <target_lang>
 ```
 
 ## Subwording
