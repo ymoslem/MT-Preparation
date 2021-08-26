@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Filtering/Cleaning parallel datasets for Machine Translation
-# Please read the steps and adjust it for your needs.
+# Please read the steps and adjust them for your needs.
 # Command: python3 filter.py <source_file_path> <target_file_path> <source_lang> <target_lang>
 
 
