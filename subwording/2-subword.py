@@ -33,7 +33,7 @@ with open(source_raw) as source, open(source_subworded, "w+") as source_subword:
     for line in source:
         line = line.strip()
         line = sp.encode_as_pieces(line)
-        # line = ['<s>'] + line + ['</s>']    # add start & end tokens; unrequired for OpenNMT
+        # line = ['<s>'] + line + ['</s>']    # add start & end tokens; optional
         line = " ".join([token for token in line])
         source_subword.write(line + "\n")
 
