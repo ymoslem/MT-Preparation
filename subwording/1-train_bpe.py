@@ -9,28 +9,8 @@ import sys
 import sentencepiece as spm
 
 
-path = ""    # change the path if needed
-
-train_source_file_tok = path + sys.argv[1]
-train_target_file_tok = path + sys.argv[2]
-
-
-# Source Vocab Size
-
-with open(train_source_file_tok) as source:
-    source = source.read()
-    source_vocab = source.split()
-    source_vocab_size = len(set(source_vocab))
-    print(source_vocab_size)
-
-
-# Target Vocab Size
-
-with open(train_target_file_tok) as target:
-    target = target.read()
-    target_vocab = target.split()
-    target_vocab_size = len(set(target_vocab))
-    print(target_vocab_size)
+train_source_file_tok = sys.argv[1]
+train_target_file_tok = sys.argv[2]
     
 
 # train sentencepiece model from the source and target files
@@ -43,13 +23,13 @@ with open(train_target_file_tok) as target:
 
 # Source subword model
 
-source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --vocab_size='+str(source_vocab_size)+' --hard_vocab_limit=false --model_type=bpe'
+source_train_value = '--input='+train_source_file_tok+' --model_prefix=source --vocab_size=50000 --hard_vocab_limit=false --model_type=bpe --split_digits=true'
 spm.SentencePieceTrainer.train(source_train_value)
 print("Done, training a SentencepPiece model for the Source finished successfully!")
 
 
 # Target subword model
 
-target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size='+str(target_vocab_size)+' --hard_vocab_limit=false --model_type=bpe'
+target_train_value = '--input='+train_target_file_tok+' --model_prefix=target --vocab_size=50000 --hard_vocab_limit=false --model_type=bpe --split_digits=true'
 spm.SentencePieceTrainer.train(target_train_value)
 print("Done, training a SentencepPiece model for the Target finished successfully!")
