@@ -78,7 +78,7 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
     # Use str() to avoid (TypeError: expected string or bytes-like object)
     # Note: removing tags should be before removing empty cells because some cells might have only tags and become empty.
 
-    df = df.replace(r'<.*?>|&lt;.*?&gt;|&quot;|&apos;', '', regex=True)
+    df = df.replace(r'<.*?>|&lt;.*?&gt;|&?(amp|nbsp|quot);|{}', ' ', regex=True)
     df = df.replace(r'  ', ' ', regex=True)  # replace double-spaces with one space
 
     print("--- HTML Removed\t\t\t--> Rows:", df.shape[0])
