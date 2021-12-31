@@ -81,6 +81,7 @@ This step is useful after training your Machine Translation model and translatin
 python3 desubword.py <target_model_file> <target_pred_file>
 ```
 
+
 ## Extracting Training and Development Datasets
 
 In this step, you split the parallel dataset into training and development datasets. The first argument is the number of segments you want in the development dataset; the script rondomly selects this number of segments for the dev set and keeps the rest for the train set.
@@ -88,6 +89,13 @@ In this step, you split the parallel dataset into training and development datas
 ```
 python3 train_dev_split.py <dev_segment_number> <source_file_path> <target_file_path>
 ```
+
+
+## Google Colab Notebooks
+
+* [Data Gathering and Processing](https://colab.research.google.com/drive/1rsFPnAQu9-_A6e2Aw9JYK3C8mXx9djsF)
+* [Training Transformer-based NMT Model with OpenNMT-py](https://colab.research.google.com/drive/1HU8YKp52njmjtROjN-UNneTu0oYxYg9i)
+
 
 ## Questions
 If you have questions or suggestions, please feel free to [contact](https://blog.machinetranslation.io/contact/) me.
