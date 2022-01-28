@@ -68,7 +68,7 @@ python3 subword.py <sp_source_model_path> <sp_target_model_path> <source_file_pa
 
 **Notes for OpenNMT users:**
 
-* If you are using OpenNMT, remove `<s>` and `</s>` in the target as they are already added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)). In OpenNMT-tf, there is an option called `sequence_controls` to add `start` and/or `end` tokens to both the source and the target; alternatively, you can use `source_sequence_controls` and `target_sequence_controls` individually.
+* If you are using OpenNMT, you can add `<s>` and `</s>` to the source only. Remove `<s>` and `</s>` from the target as they are already added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)). Alternatively, in OpenNMT-tf, there is an option called `source_sequence_controls` to add `start` and/or `end` tokens to the source.
 * After you segment your source and target files with the generated SentencePiece models, you must [build vocab](https://opennmt.net/OpenNMT-py/options/build_vocab.html) using OpenNMT-py to generate vocab files compatible with it. OpenNMT-tf has an option that allows [converting SentencePiece vocab](https://opennmt.net/OpenNMT-tf/vocabulary.html#convert-a-sentencepiece-vocabulary-to-opennmt-tf) to a compatible format.
 * Before you start training with OpenNMT-py, you must confgure `src_vocab_size` and `tgt_vocab_size` to exactly match the value you used for `--vocab_size` in SentencePiece. The default is 50000, which is usually good.
 
