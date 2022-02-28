@@ -79,7 +79,7 @@ if __name__ == '__main__':
     chunk_size = int(sys.argv[3])
     srclang = sys.argv[4]
     tgtlang = sys.argv[5]
-    threshold = sys.argv[6]  # try 0.45
+    threshold = float(sys.argv[6])  # try 0.45
     
     file_line_count = line_count(source_file_path)
     print("Line count:", file_line_count)
