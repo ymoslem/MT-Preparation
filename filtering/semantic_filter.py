@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
 
     # Download and load the model
-    model_cache = "/home/two1080ti/hd/"
+    model_cache = "."
     
     if len(srclang) > 2 or len(tgtlang) > 2:
         raise SystemExit("Please use an ISO 639‑1 language code, e.g. 'en'!")
