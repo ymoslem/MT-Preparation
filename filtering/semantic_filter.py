@@ -79,13 +79,17 @@ if __name__ == '__main__':
     chunk_size = int(sys.argv[3])
     srclang = sys.argv[4]
     tgtlang = sys.argv[5]
+    threshold = sys.argv[6]  # try 0.45
     
     file_line_count = line_count(source_file_path)
     print("Line count:", file_line_count)
 
 
     # Download and load the model
-    model_cache = "."
+    model_cache = "/home/two1080ti/hd/"
+    
+    muse_langs = ['ar', 'de', 'en', 'es', 'fr', 'it', 'ko', 'nl', 'pt', 'pt', 'ru', 'tr', 'zh']
+    para_langs = ["ar", "bg", "ca", "cs", "da", "de", "en", "el", "es", "et", "fa", "fi", "fr", "gl", "gu", "he", "hi", "hr", "hu", "hy", "id", "it", "ja", "ka", "ko", "ku", "lt", "lv", "mk", "mn", "mr", "ms", "my", "nb", "nl", "pl", "pt", "pt", "ro", "ru", "sk", "sl", "sq", "sr", "sv", "th", "tr", "uk", "ur", "vi", "zh"]
     
     if len(srclang) > 2 or len(tgtlang) > 2:
         raise SystemExit("Please use an ISO 639‑1 language code, e.g. 'en'!")
@@ -98,9 +102,6 @@ if __name__ == '__main__':
     
     model = SentenceTransformer(model_name, device="cuda", cache_folder=model_cache)
     print("Model loaded:", model_name)
-
-    threshold = 0.45
-
 
     # Start a multiprocessing pool
     pool = model.start_multi_process_pool()
