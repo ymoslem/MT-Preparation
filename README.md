@@ -10,9 +10,9 @@ pip3 install --user -r requirements.txt
 ```
 
 ## Filtering
-There is one script to use for clearning your Machine Translation dataset. You must have two files, one for the source and one for the target. If you rather have one TMX file, you can first use the [TXM2MT](https://github.com/ymoslem/file-converters) converter.
+There is one script to use for cleaning your Machine Translation dataset. You must have two files, one for the source and one for the target. If you rather have one TMX file, you can first use the [TXM2MT](https://github.com/ymoslem/file-converters) converter.
 
-The filter script achieve the following steps:
+The filter script achieves the following steps:
 * Deleting empty rows;
 * Deleting duplicates;
 * Deleting source-copied rows;
@@ -29,7 +29,7 @@ python3 filter.py <source_file_path> <target_file_path> <source_lang> <target_la
 
 ## Subwording
 
-It is recommended to run the subwording process as it helps your Machine Translation engine avoid out-of-vocabulary tokens. The subwording scripts apply [SentencePiece](https://github.com/google/sentencepiece) on your source and target Machine Translation files. There are three scripts provided:
+It is recommended to run the subwording process, as it helps your Machine Translation engine avoid out-of-vocabulary tokens. The subwording scripts apply [SentencePiece](https://github.com/google/sentencepiece) to your source and target Machine Translation files. There are three scripts provided:
 
 ### 1. Train a subwording model
 
@@ -55,7 +55,7 @@ Optionally, you can add [more options](https://github.com/google/sentencepiece/b
 
 * You can use `--train_extremely_large_corpus=true` for a big corpus to avoid memory issues.
 * The default SentencePiece value for `--input_sentence_size` is 0, i.e. the whole corpus. You can change it to a value between 1 and 10 million sentences, which will be enough for creating a good SentencePiece model.
-* When the value of `--input_sentence_size` is less than the size of the corpus, it is recommended to set `--shuffle_input_sentence=true` to make your sample representive to the distribution of your data.
+* When the value of `--input_sentence_size` is less than the size of the corpus, it is recommended to set `--shuffle_input_sentence=true` to make your sample representative to the distribution of your data.
 * The default SentencePiece value for `--vocab_size` is 8,000. You can go for a higher value between 30,000 and 50,000, and up to 100,000 for a big corpus. Still, note that smaller values will encourage the model to make more splits on words, which might be better in the case of a multilingual model if the languages share the alphabet.
 
 ### 2. Subword
@@ -70,12 +70,12 @@ python3 subword.py <sp_source_model_path> <sp_target_model_path> <source_file_pa
 
 * If you are using OpenNMT, you can add `<s>` and `</s>` to the source only. Remove `<s>` and `</s>` from the target as they are already added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)). Alternatively, in OpenNMT-tf, there is an option called `source_sequence_controls` to add `start` and/or `end` tokens to the source.
 * After you segment your source and target files with the generated SentencePiece models, you must [build vocab](https://opennmt.net/OpenNMT-py/options/build_vocab.html) using OpenNMT-py to generate vocab files compatible with it. OpenNMT-tf has an option that allows [converting SentencePiece vocab](https://opennmt.net/OpenNMT-tf/vocabulary.html#convert-a-sentencepiece-vocabulary-to-opennmt-tf) to a compatible format.
-* Before you start training with OpenNMT-py, you must confgure `src_vocab_size` and `tgt_vocab_size` to exactly match the value you used for `--vocab_size` in SentencePiece. The default is 50000, which is usually good.
+* Before you start training with OpenNMT-py, you must configure `src_vocab_size` and `tgt_vocab_size` to exactly match the value you used for `--vocab_size` in SentencePiece. The default is 50000, which is usually good.
 
 
 ### 3. Desubword
 
-This step is useful after training your Machine Translation model and translating files with it as you need to decode/desubword the generated target (i.e. translated) files.
+This step is useful after training your Machine Translation model and translating files with it, as you need to decode/desubword the generated target (i.e. translated) files.
 
 ```
 python3 desubword.py <target_model_file> <target_pred_file>
@@ -84,7 +84,7 @@ python3 desubword.py <target_model_file> <target_pred_file>
 
 ## Extracting Training and Development Datasets
 
-In this step, you split the parallel dataset into training and development datasets. The first argument is the number of segments you want in the development dataset; the script rondomly selects this number of segments for the dev set and keeps the rest for the train set.
+In this step, you split the parallel dataset into training and development datasets. The first argument is the number of segments you want in the development dataset; the script randomly selects this number of segments for the dev set and keeps the rest for the train set.
 
 ```
 python3 train_dev_split.py <dev_segment_number> <source_file_path> <target_file_path>
