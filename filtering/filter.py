@@ -16,11 +16,9 @@ import sys
 #from IPython.display import display
 
 
-def prepare(source_file, target_file, source_lang, target_lang, lower=False):
+def prepare(bilingual_file, source_lang, target_lang, lower=False):
     
-    df_source = pd.read_csv(source_file, names=['Source'], sep="\n", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
-    df_target = pd.read_csv(target_file, names=['Target'], sep="\n", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
-    df = pd.concat([df_source, df_target], axis=1)  # Join the two dataframes along columns
+    df = pd.read_csv(bilingual_file, names=['Source', 'Target'], sep="\t", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
     print("Dataframe shape (rows, columns):", df.shape)
 
     
@@ -109,8 +107,8 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
 
 
     # Write the dataframe to two Source and Target files
-    source_file = source_file+'-filtered.'+source_lang
-    target_file = target_file+'-filtered.'+target_lang
+    source_file = f"{bilingual_file}.{source_lang}-filtered.{source_lang}"
+    target_file = f"{bilingual_file}.{target_lang}-filtered.{target_lang}"
 
 
     # Save source and target to two text files
@@ -124,11 +122,10 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
 
 
 # Corpora details
-source_file = sys.argv[1]    # path to the source file
-target_file = sys.argv[2]    # path to the target file
-source_lang = sys.argv[3]    # source language
-target_lang = sys.argv[4]    # target language
+bilingual_file = sys.argv[1]
+source_lang = sys.argv[2]    # source language
+target_lang = sys.argv[3]    # target language
 
 # Run the prepare() function
 # Data will be true-case; change to True to lower-case
-prepare(source_file, target_file, source_lang, target_lang, lower=False)
+prepare(bilingual_file, source_lang, target_lang, lower=False)
