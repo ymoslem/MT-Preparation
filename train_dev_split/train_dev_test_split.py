@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Splitting the parallel dataset into train, development and test datasets for Machine Translation
-# Command: python3 train_dev_split.py <dev_segment_number> <test_segment_number> <source_file_path> <target_file_path>
+# Command: python3 train_dev_split.py <dev_segment_number> <test_segment_number> <bilingual_file_path> <source_lang> <target_lang>
 
 
 import pandas as pd
@@ -17,15 +17,14 @@ import sys
 
 segment_no_dev = sys.argv[1]    # Number of segments in the dev set
 segment_no_test = sys.argv[2]    # Number of segments in the test set
-source_file = sys.argv[3]   # Path to the source file
-target_file = sys.argv[4]   # Path to the target file
+bilingual_file = sys.argv[3]   # Path to the bilingual file
+source_lang = sys.argv[4]    # source language
+target_lang = sys.argv[5]    # target language
 
 
-def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
+def extract_dev(segment_no_dev, segment_no_test, bilingual_file, source_lang, target_lang):
 
-    df_source = pd.read_csv(source_file, names=['Source'], sep="\n", quoting=csv.QUOTE_NONE, error_bad_lines=False)
-    df_target = pd.read_csv(target_file, names=['Target'], sep="\n", quoting=csv.QUOTE_NONE, error_bad_lines=False)
-    df = pd.concat([df_source, df_target], axis=1)  # Join the two dataframes along columns
+    df = pd.read_csv(bilingual_file, names=['Source', 'Target'], sep="\t", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
     print("Dataframe shape:", df.shape)
 
 
@@ -44,14 +43,14 @@ def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
     df_train = df_train.drop(df_test.index)
 
     # Write the dataframe to two Source and Target files
-    source_file_train = source_file+'.train'
-    target_file_train = target_file+'.train'
+    source_file_train = f"{bilingual_file}.{source_lang}.train"
+    target_file_train = f"{bilingual_file}.{target_lang}.train"
 
-    source_file_dev = source_file+'.dev'
-    target_file_dev = target_file+'.dev'
+    source_file_dev = f"{bilingual_file}.{source_lang}.dev"
+    target_file_dev = f"{bilingual_file}.{target_lang}.dev"
 
-    source_file_test = source_file+'.test'
-    target_file_test = target_file+'.test'
+    source_file_test = f"{bilingual_file}.{source_lang}.test"
+    target_file_test = f"{bilingual_file}.{target_lang}.test"
 
     df_dic_train = df_train.to_dict(orient='list')
 
@@ -93,4 +92,4 @@ def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
 
 
 
-extract_dev(segment_no_dev, segment_no_test, source_file, target_file)
+extract_dev(segment_no_dev, segment_no_test, bilingual_file, source_lang, target_lang)
