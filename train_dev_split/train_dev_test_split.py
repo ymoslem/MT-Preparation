@@ -23,8 +23,18 @@ target_file = sys.argv[4]   # Path to the target file
 
 def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
 
-    df_source = pd.read_csv(source_file, names=['Source'], sep="\n", quoting=csv.QUOTE_NONE, error_bad_lines=False)
-    df_target = pd.read_csv(target_file, names=['Target'], sep="\n", quoting=csv.QUOTE_NONE, error_bad_lines=False)
+    df_source = pd.read_csv(source_file,
+                            names=['Source'],
+                            sep="\n",
+                            quoting=csv.QUOTE_NONE,
+                            skip_blank_lines=False,
+                            on_bad_lines="skip")
+    df_target = pd.read_csv(target_file,
+                            names=['Target'],
+                            sep="\n",
+                            quoting=csv.QUOTE_NONE,
+                            skip_blank_lines=False,
+                            on_bad_lines="skip")
     df = pd.concat([df_source, df_target], axis=1)  # Join the two dataframes along columns
     print("Dataframe shape:", df.shape)
 
