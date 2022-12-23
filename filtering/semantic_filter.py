@@ -2,6 +2,7 @@
 
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import pytorch_cos_sim
+import pytorch
 from tqdm import tqdm
 import os
 import sys
