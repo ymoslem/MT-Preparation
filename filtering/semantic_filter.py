@@ -1,3 +1,5 @@
+# Command: python3 semantic_filter.py <source_file_path> <target_file_path> <source_lang> <target_lang> <chunk_size> <threshold>
+
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import pytorch_cos_sim
 from tqdm import tqdm
@@ -76,9 +78,9 @@ if __name__ == '__main__':
     # [Modify] source and target paths
     source_file_path = sys.argv[1]
     target_file_path = sys.argv[2]
-    chunk_size = int(sys.argv[3])
-    srclang = sys.argv[4]
-    tgtlang = sys.argv[5]
+    srclang = sys.argv[3]
+    tgtlang = sys.argv[4]
+    chunk_size = int(sys.argv[5])
     threshold = float(sys.argv[6])  # try 0.45
     
     file_line_count = line_count(source_file_path)
@@ -86,7 +88,7 @@ if __name__ == '__main__':
 
 
     # Download and load the model
-    model_cache = "/home/two1080ti/hd/"
+    model_cache = "model_cache"
     
     muse_langs = ['ar', 'de', 'en', 'es', 'fr', 'it', 'ko', 'nl', 'pt', 'pt', 'ru', 'tr', 'zh']
     para_langs = ["ar", "bg", "ca", "cs", "da", "de", "en", "el", "es", "et", "fa", "fi", "fr", "gl", "gu", "he", "hi", "hr", "hu", "hy", "id", "it", "ja", "ka", "ko", "ku", "lt", "lv", "mk", "mn", "mr", "ms", "my", "nb", "nl", "pl", "pt", "pt", "ro", "ru", "sk", "sl", "sq", "sr", "sv", "th", "tr", "uk", "ur", "vi", "zh"]
@@ -100,7 +102,8 @@ if __name__ == '__main__':
     else:
         raise SystemExit("Language pair is not supported!")
     
-    model = SentenceTransformer(model_name, device="cuda", cache_folder=model_cache)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = SentenceTransformer(model_name, device=device, cache_folder=model_cache)
     print("Model loaded:", model_name)
 
     # Start a multiprocessing pool
