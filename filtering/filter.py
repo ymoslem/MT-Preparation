@@ -18,8 +18,8 @@ import sys
 
 def prepare(source_file, target_file, source_lang, target_lang, lower=False):
     
-    df_source = pd.read_csv(source_file, names=['Source'], sep="\0", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
-    df_target = pd.read_csv(target_file, names=['Target'], sep="\0", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
+    df_source = pd.read_csv(source_file, names=['Source'], sep="\n", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
+    df_target = pd.read_csv(target_file, names=['Target'], sep="\n", quoting=csv.QUOTE_NONE, skip_blank_lines=False, on_bad_lines="skip")
     df = pd.concat([df_source, df_target], axis=1)  # Join the two dataframes along columns
     print("Dataframe shape (rows, columns):", df.shape)
 
@@ -117,9 +117,9 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
     df_source = df["Source"]
     df_target = df["Target"]
 
-    df_source.to_csv(source_file, header=False, index=False, quoting=csv.QUOTE_NONE, sep="\0")
+    df_source.to_csv(source_file, header=False, index=False, quoting=csv.QUOTE_NONE, sep="\n")
     print("--- Source Saved:", source_file)
-    df_target.to_csv(target_file, header=False, index=False, quoting=csv.QUOTE_NONE, sep="\0")
+    df_target.to_csv(target_file, header=False, index=False, quoting=csv.QUOTE_NONE, sep="\n")
     print("--- Target Saved:", target_file)
 
 
