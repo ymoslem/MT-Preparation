@@ -25,13 +25,13 @@ def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
 
     df_source = pd.read_csv(source_file,
                             names=['Source'],
-                            sep="\n",
+                            sep="\0",
                             quoting=csv.QUOTE_NONE,
                             skip_blank_lines=False,
                             on_bad_lines="skip")
     df_target = pd.read_csv(target_file,
                             names=['Target'],
-                            sep="\n",
+                            sep="\0",
                             quoting=csv.QUOTE_NONE,
                             skip_blank_lines=False,
                             on_bad_lines="skip")
