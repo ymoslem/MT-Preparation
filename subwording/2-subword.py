@@ -29,7 +29,7 @@ sp = spm.SentencePieceProcessor()
 
 sp.load(source_model)
 
-with open(source_raw) as source, open(source_subworded, "w+") as source_subword:
+with open(source_raw, encoding='utf-8') as source, open(source_subworded, "w+", encoding='utf-8') as source_subword:
     for line in source:
         line = line.strip()
         line = sp.encode_as_pieces(line)
@@ -44,7 +44,7 @@ print("Done subwording the source file! Output:", source_subworded)
 
 sp.load(target_model)
 
-with open(target_raw) as target, open(target_subworded, "w+") as target_subword:
+with open(target_raw, encoding='utf-8') as target, open(target_subworded, "w+", encoding='utf-8') as target_subword:
     for line in target:
         line = line.strip()
         line = sp.encode_as_pieces(line)
