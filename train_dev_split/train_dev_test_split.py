@@ -77,22 +77,22 @@ def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
 
     df_dic_dev = df_dev.to_dict(orient='list')
 
-    with open(source_file_dev, "w") as sf:
+    with open(source_file_dev, "w", encoding='utf-8') as sf:
         sf.write("\n".join(line for line in df_dic_dev['Source']))
         sf.write("\n") # end of file newline
         
-    with open(target_file_dev, "w") as tf:
+    with open(target_file_dev, "w", encoding='utf-8') as tf:
         tf.write("\n".join(line for line in df_dic_dev['Target']))
         tf.write("\n") # end of file newline
         
 
     df_dic_test = df_test.to_dict(orient='list')
 
-    with open(source_file_test, "w") as sf:
+    with open(source_file_test, "w", encoding='utf-8') as sf:
         sf.write("\n".join(line for line in df_dic_test['Source']))
         sf.write("\n") # end of file newline
         
-    with open(target_file_test, "w") as tf:
+    with open(target_file_test, "w", encoding='utf-8') as tf:
         tf.write("\n".join(line for line in df_dic_test['Target']))
         tf.write("\n") # end of file newline
         
