@@ -8,10 +8,18 @@ import os
 import sys
 
 # Function to split source lines into chunks to avoid out-of-memory errors
-def filter(source_file_path, target_file_path, model, pool, threshold, chunk_size, file_line_count):
+def filter(source_file_path,
+           target_file_path,
+           srclang,
+           tgtlang,
+           model,
+           pool,
+           threshold,
+           chunk_size,
+           file_line_count):
 
-    filtered_source = source_file_path + ".semantic"
-    filtered_target = target_file_path + ".semantic"
+    filtered_source = source_file_path + ".semantic." + srclang
+    filtered_target = target_file_path + ".semantic." + tgtlang
 
     # Remove output files if exist
     if os.path.exists(filtered_source):
