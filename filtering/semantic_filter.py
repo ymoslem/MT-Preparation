@@ -119,7 +119,7 @@ if __name__ == '__main__':
     pool = model.start_multi_process_pool()
 
     # Filter
-    filter(source_file_path, target_file_path, model, pool, threshold, chunk_size, file_line_count)
+    filter(source_file_path, target_file_path, srclang, tgtlang, model, pool, threshold, chunk_size, file_line_count)
 
     # Close the the multiprocessing pool
     model.stop_multi_process_pool(pool)
