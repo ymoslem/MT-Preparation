@@ -122,13 +122,13 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
     df_target.to_csv(target_file, header=False, index=False, quoting=csv.QUOTE_NONE, sep="\n")
     print("--- Target Saved:", target_file)
 
-
-# Corpora details
-source_file = sys.argv[1]    # path to the source file
-target_file = sys.argv[2]    # path to the target file
-source_lang = sys.argv[3]    # source language
-target_lang = sys.argv[4]    # target language
-
-# Run the prepare() function
-# Data will be true-case; change to True to lower-case
-prepare(source_file, target_file, source_lang, target_lang, lower=False)
+if __name__ == '__main__':
+    # Corpora details
+    source_file = sys.argv[1]    # path to the source file
+    target_file = sys.argv[2]    # path to the target file
+    source_lang = sys.argv[3]    # source language
+    target_lang = sys.argv[4]    # target language
+    
+    # Run the prepare() function
+    # Data will be true-case; change to True to lower-case
+    prepare(source_file, target_file, source_lang, target_lang, lower=False)
