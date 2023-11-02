@@ -15,13 +15,7 @@ import sys
 # from IPython.display import display
 
 
-segment_no_dev = sys.argv[1]    # Number of segments in the dev set
-segment_no_test = sys.argv[2]    # Number of segments in the test set
-source_file = sys.argv[3]   # Path to the source file
-target_file = sys.argv[4]   # Path to the target file
-
-
-def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
+def split_dataset(segment_no_dev, segment_no_test, source_file, target_file):
 
     df_source = pd.read_csv(source_file,
                             names=['Source'],
@@ -103,4 +97,10 @@ def extract_dev(segment_no_dev, segment_no_test, source_file, target_file):
 
 
 
-extract_dev(segment_no_dev, segment_no_test, source_file, target_file)
+if __name__ == "__main__":
+  segment_no_dev = sys.argv[1]    # Number of segments in the dev set
+  segment_no_test = sys.argv[2]    # Number of segments in the test set
+  source_file = sys.argv[3]   # Path to the source file
+  target_file = sys.argv[4]   # Path to the target file
+
+  split_dataset(segment_no_dev, segment_no_test, source_file, target_file)
