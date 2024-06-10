@@ -91,7 +91,7 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
 
         print("--- Rows are now lower-cased\t--> Rows:", df.shape[0])
     else:
-        print("--- Rows will remain in true-cased\t--> Rows:", df.shape[0])
+        print("--- Rows will remain true-cased\t--> Rows:", df.shape[0])
 
 
     # Replace empty cells with NaN
