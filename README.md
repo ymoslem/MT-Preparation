@@ -100,3 +100,23 @@ python3 train_dev_split.py <dev_segment_number> <source_file_path> <target_file_
 ## Questions
 If you have questions or suggestions, please feel free to [contact](https://blog.machinetranslation.io/contact/) me.
 
+
+## Citation
+
+```
+@inproceedings{moslem-etal-2022-domain,
+    title = "Domain-Specific Text Generation for Machine Translation",
+    author = "Moslem, Yasmin  and
+      Haque, Rejwanul  and
+      Kelleher, John  and
+      Way, Andy",
+    booktitle = "Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Volume 1: Research Track)",
+    month = sep,
+    year = "2022",
+    address = "Orlando, USA",
+    publisher = "Association for Machine Translation in the Americas",
+    url = "https://aclanthology.org/2022.amta-research.2",
+    pages = "14--30",
+}
+```
+
