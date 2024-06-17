@@ -103,7 +103,7 @@ If you have questions or suggestions, please feel free to [contact](https://blog
 
 ## Citation
 
-```
+```bibtex
 @inproceedings{moslem-etal-2022-domain,
     title = "Domain-Specific Text Generation for Machine Translation",
     author = "Moslem, Yasmin  and
