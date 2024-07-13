@@ -40,8 +40,11 @@ def extract_dev(segment_no, source_file, target_file):
     
     # Delete rows with empty cells (source or target)
     df = df.dropna()
-    
     print("--- Empty Cells Deleted", "--> Rows:", df.shape[0])
+
+    # Shuffle the data
+    df = df.sample(frac=1).reset_index(drop=True)
+    print("--- Rows Shuffled\t\t\t--> Rows:", df.shape[0])
     
     
     # Extract Dev set from the main dataset
