@@ -44,8 +44,8 @@ def filter(source_file_path,
                 print(line_index, "|", end=" ", flush=True)
 
                 # Compute Sentence Embeddings
-                source_embeddings = model.encode_multi_process(source, pool=pool, batch_size=2000)
-                target_embeddings = model.encode_multi_process(target, pool=pool, batch_size=2000)
+                source_embeddings = model.encode_multi_process(source, pool=pool, batch_size=2048)
+                target_embeddings = model.encode_multi_process(target, pool=pool, batch_size=2048)
 
                 # Find similar sentences (> threshold) and save to files
                 index = 0
