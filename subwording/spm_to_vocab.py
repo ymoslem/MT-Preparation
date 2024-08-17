@@ -1,6 +1,8 @@
 # converts a SentencePiece vocabulary to the format expected by dynamic data
-# (essentially converts float expected counts to "fixed precision" int pseudo
-# counts)
+# (essentially converts float expected counts to "fixed precision" int pseudo counts)
+# This step produces a vocab file compatible with OpenNMT-py.
+# cat spm.vocab | python3 spm_to_vocab.py > spm.onmt_vocab
+
 import sys
 import math
 from onmt.constants import DefaultTokens
