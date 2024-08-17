@@ -69,8 +69,13 @@ python3 subword.py <sp_source_model_path> <sp_target_model_path> <source_file_pa
 **Notes for OpenNMT users:**
 
 * If you are using OpenNMT, you can add `<s>` and `</s>` to the source only. Remove `<s>` and `</s>` from the target as they are already added by default ([reference](https://forum.opennmt.net/t/end-and-start-tokens/4570/2)). Alternatively, in OpenNMT-tf, there is an option called `source_sequence_controls` to add `start` and/or `end` tokens to the source.
-* After you segment your source and target files with the generated SentencePiece models, you must [build vocab](https://opennmt.net/OpenNMT-py/options/build_vocab.html) using OpenNMT-py to generate vocab files compatible with it. OpenNMT-tf has an option that allows [converting SentencePiece vocab](https://opennmt.net/OpenNMT-tf/vocabulary.html#convert-a-sentencepiece-vocabulary-to-opennmt-tf) to a compatible format.
-* Before you start training with OpenNMT-py, you must configure `src_vocab_size` and `tgt_vocab_size` to exactly match the value you used for `--vocab_size` in SentencePiece. The default is 50000, which is usually good.
+* After you segment your source and target files with the generated SentencePiece models, you must [build vocab](https://opennmt.net/OpenNMT-py/options/build_vocab.html) using OpenNMT-py to generate vocab files compatible with it. OpenNMT-tf has an option that allows [converting SentencePiece vocab](https://opennmt.net/OpenNMT-tf/vocabulary.html#convert-a-sentencepiece-vocabulary-to-opennmt-tf) to a compatible format. Similarly, you can convert the SentencePiece vocab file into a format compatible with OpenNMT-py as follows:
+```
+pip3 install --upgrade OpenNMT-py
+wget https://raw.githubusercontent.com/OpenNMT/OpenNMT-py/master/tools/spm_to_vocab.py
+cat spm.vocab | python3 spm_to_vocab.py > spm.onmt_vocab
+```
+* Before you start training with OpenNMT-py, you must configure `src_vocab_size` and `tgt_vocab_size` to exactly match the value you used for `--vocab_size` in SentencePiece. The default is 32768, which is usually good for medium-sized data.
 
 
 ### 3. Desubword
