@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/311241122.svg)](https://doi.org/10.5281/zenodo.14911811)
 # MT-Preparation
 Machine Translation (MT) Preparation Scripts
 
@@ -106,7 +107,22 @@ python3 train_dev_split.py <dev_segment_number> <source_file_path> <target_file_
 If you have questions or suggestions, please feel free to [contact](https://blog.machinetranslation.io/contact/) me.
 
 
-## Citation
+## Citations
+
+```bibtex
+@MISC{moslem-2025-mtscripts,
+  title     = "Machine Translation ({MT}) preparation scripts,
+               {ymoslem/MT-preparation}: V1.0",
+  author    = "Moslem, Yasmin",
+  abstract  = "Machine Translation (MT) Preparation Scripts",
+  publisher = "GitHub",
+  year      =  2025,
+doi         = {10.5281/ZENODO.14911812},
+  url       = {https://zenodo.org/doi/10.5281/zenodo.14911812},
+}
+
+```
+
 
 ```bibtex
 @inproceedings{moslem-etal-2022-domain,
