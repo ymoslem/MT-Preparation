@@ -117,7 +117,7 @@ If you have questions or suggestions, please feel free to [contact](https://blog
   abstract  = "Machine Translation (MT) Preparation Scripts",
   publisher = "GitHub",
   year      =  2025,
-doi         = {10.5281/ZENODO.14911812},
+  doi       = {10.5281/ZENODO.14911812},
   url       = {https://zenodo.org/doi/10.5281/zenodo.14911812},
 }
 
