@@ -74,6 +74,24 @@ def prepare(source_file, target_file, source_lang, target_lang, lower=False):
     print("--- Too Long Source/Target Deleted\t--> Rows:", df.shape[0])
 
 
+    # Drop too-short rows (source or target)
+    # Based on your language, change the values "5"
+    df["Too-Short"] = ((df['Source'].str.len()) <= 3) |  \
+                      ((df['Target'].str.len()) <= 3)
+                
+    df = df.set_index(['Too-Short'])
+
+    try: # To avoid (KeyError: '[True] not found in axis') if there are no too-long cells
+        df = df.drop([True]) # Boolean, not string, do not add quotes
+    except:
+        pass
+
+    df = df.reset_index()
+    df = df.drop(['Too-Short'], axis = 1)
+
+    print("--- Too Short Source/Target Deleted\t--> Rows:", df.shape[0])
+
+
     # Remove HTML and normalize
     # Use str() to avoid (TypeError: expected string or bytes-like object)
     # Note: removing tags should be before removing empty cells because some cells might have only tags and become empty.
